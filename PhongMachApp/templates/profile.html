@@ -1,0 +1,169 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Hồ sơ{% endblock %}
+
+{% block content %}
+<div class="container emp-profile">
+
+    <form>
+        <div class=" row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    {% if current_user.avatar %}
+                    <img src="{{ current_user.avatar }}">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='image/member.png') }} ">
+                    {% endif %}
+                    <div class="file btn btn-lg btn-primary">
+                        Đổi ảnh đại diện
+                        <input type="file" name="avatar" id="avatar"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Mã bệnh nhân:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{ current_user.id }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Họ và tên:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{ current_user.name }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Email:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{ current_user.email }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Số điện thoại:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{ current_user.phone }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="lichsukham">
+                    <h3 style="color: #17a2b8;"><strong>Lịch sử khám bệnh</strong></h3>
+
+                    {% if medical_records %}
+                    <table class="table table-striped">
+                        <thead style="color: #17a2b8;">
+                        <tr>
+                            <th>Ngày khám</th>
+                            <th>Chẩn đoán bệnh</th>
+                            <th>Thuốc sử dụng</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for record in medical_records %}
+                        <tr>
+                            <td>{{ record.date }}</td>
+                            <td>{{ record.forecast }}</td>
+                            <td>
+                                <ul>
+                                    {% for prescription in record.prescriptions %}
+                                    <li>{{ prescription.medicine.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p>Không có lịch sử khám.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-2">
+                <!--                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>-->
+
+                <!-- Button to Open the Modal -->
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">
+                    Edit profile
+                </button>
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content ">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Cập nhật hồ sơ</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form id="editForm">
+                                    <label for="new_name">Họ và tên:</label>
+                                    <input type="text" id="new_name" name="new_name" required><br>
+
+                                    <label for="new_email">Email:</label>
+                                    <input type="email" id="new_email" name="new_email" required><br>
+
+                                    <label for="new_phone">Số điện thoại:</label>
+                                    <input type="text" id="new_phone" name="new_phone" required><br>
+
+                                    <button type="button" class="btn btn-success" id="submitBtn">Thay đổi thông tin
+                                    </button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Thoát</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+         $('#submitBtn').click(function() {
+             var newName = $('#new_name').val().trim();
+             var newEmail = $('#new_email').val().trim();
+             var newPhone = $('#new_phone').val().trim();
+
+             // Kiểm tra xem các trường input có được điền thông tin không
+             if (newName === '' || newEmail === '' || newPhone === '') {
+                 // Hiển thị thông báo lỗi hoặc thực hiện hành động phù hợp khi trường input trống
+                 // Ví dụ: Hiển thị thông báo lỗi
+                 alert('Vui lòng điền đầy đủ thông tin!');
+             } else {
+                 // Gửi dữ liệu đi chỉ khi các trường input đã được điền thông tin
+                 $.ajax({
+                     url: '/edit_profile',
+                     type: 'POST',
+                     data: { new_name: newName, new_email: newEmail, new_phone: newPhone },
+                     success: function(response) {
+                         // Xử lý khi thành công, ví dụ đóng modal và làm mới trang
+                         $('#myModal').modal('hide');
+                         location.reload(); // Hoặc làm điều gì đó khác sau khi cập nhật thành công
+                     },
+                     error: function(error) {
+                         console.error('Error:', error);
+                     }
+                 });
+             }
+         });
+     });
+
+    </script>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'admin/base.html' %}
+
+{% block body %}
+{% if current_user.is_authenticated %}
+<h1>Chào mừng {{ current_user.name }}!!!</h1>
+{% else %}
+
+<form method="post" action="{{ url_for('signin_admin') }}">
+        <h3 class="text-center text-danger">ĐĂNG NHẬP QUYỀN QUẢN TRỊ</h3>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" placeholder="Nhập email..."
+                   id="email" name="email" class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="pwd">Mật khẩu</label>
+            <input type="password" placeholder="Nhập mật khẩu..."
+                   id="pwd" name="password" class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Đăng nhập"
+                   class="btn btn-success"/>
+        </div>
+    </form>
+{% endif %}
+{% endblock %}

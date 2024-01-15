@@ -1,0 +1,126 @@
+.container-left {
+    width: 20%;
+    float: left;
+}
+p{
+color: black;}
+.container-right {
+    width: 70%;
+    float: left;
+}
+.text-center{
+    text-align: center;
+}
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin:0 auto;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+}
+.title{
+    text-align:center;
+    color: blue;
+}
+h1.text-center{
+color: #7386d5;
+font-weight:bold;
+}
+.issue-invoice button{
+    padding: 10px;
+    display: block;
+    color: green;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    width:70%;
+    margin: 0 auto;
+    background-color: #7386d5;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+
+#qr-code-container {
+    display: flex;
+    margin-top:10px;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Thiết lập chiều cao của div */
+}
+
+.payment-section{
+width:70%;
+margin:0 auto;}
+
+select{
+padding:10px;}
+
+.payment-section input{
+display: block;
+width:40%;}
+/* Style cho form tìm kiếm */
+.search-container {
+    display: flex;
+    justify-content: flex-end; /* Căn chỉnh sang bên phải */
+    margin-top: 20px;
+}
+
+
+.search-form button{
+padding:15px;
+margin-right:150px;
+background-color: #7386d5;
+}
+ .container {
+    overflow: hidden;
+  }
+  .tb-hoadon {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+  .tb-hoadon thead,
+  .tb-hoadon tbody {
+    display: block;
+  }
+  .tb-hoadon thead {
+    width: calc(100% - 17px); /* Bù trừ thanh cuộn ngang */
+  }
+  .tb-hoadon tbody {
+    max-height: 500px;
+    width: 100%;
+    overflow-y: auto;
+    display: block;
+  }
+  .tb-hoadon tr {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .tb-hoadon th,
+  .tb-hoadon td {
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    flex: 1 1 auto;
+    width: 160px; /* Điều chỉnh kích thước theo nhu cầu */
+    min-width: 0;
+  }
+  .tb-hoadon th:first-child,
+  .tb-hoadon td:first-child {
+    flex: 0 0 100px; /* Cột Mã phiếu */
+    width: 100px; /* Kích thước cột Mã phiếu */
+  }
+  .tb-hoadon th:nth-child(2),
+  .tb-hoadon td:nth-child(2) {
+    flex: 0 0 120px; /* Cột Mã bệnh nhân */
+    width: 120px; /* Kích thước cột Mã bệnh nhân */
+  }
+
+

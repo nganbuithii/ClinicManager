@@ -1,0 +1,260 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    font-family: Helvetica Neue, sans-serif;
+}
+
+/*top image*/
+.top-image {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+.top-image img {
+    width: 100%;
+    height: 600px;
+    display: block;
+    opacity:0.8;
+}
+.top-image .title{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    font-weight: bold;
+}
+.top-image p {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom:20px;
+}
+/*search*/
+.form-inline .input-group{
+    width: 100% !important;
+}
+
+.top-image .title-option{
+    position: absolute;
+    top:80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+    font-weight: bold;
+    width: 100%;
+}
+/*logout*/
+.nav-item.dropdown .dropdown-menu a.dropdown-item:nth-last-child(n+2):not(:last-child):hover {
+    color: #28a745;
+}
+.nav-item.dropdown .dropdown-menu a.dropdown-item:last-child:hover {
+    color: red;
+}
+
+.container-fluid{
+    text-align:center;
+    margin:20px 0px;
+    padding:10px;
+}
+.container-fluid .card{
+    margin-top:20px;
+}
+
+.security .row{
+    margin:20px 0px;
+}
+.security .title{
+    margin-bottom:20px;
+}
+.security .col-sm-3 h3{
+    font-size:18px;
+    margin-top:10px;
+}
+.content-footer{
+    margin:20px 100px;
+}
+
+/*thuóc*/
+.info-medicine .card{
+    width:100%;
+    border: 2px solid #ddd; /* Add a subtle border */
+    border-radius: 8px; /* Add rounded corners */
+    overflow: hidden; /* Hide any content that overflows the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+.info-medicine .card:hover {
+    transform: scale(1.03); /* Enlarge the card slightly on hover */
+}
+.info-medicine .card-title{
+    font-weight: bold;
+    margin:10px 0px 2px;
+}
+.info-medicine .card-content{
+    opacity:0.8;
+    display:block;
+    margin-bottom:0px;
+}
+
+/*detail*/
+.container-detail {
+    margin: 10px 50px;
+    padding: 20px;
+}
+
+.container-detail .image-detail{
+width:100%;
+height:500px;
+object-fit: contain;}
+
+.container-detail .title-detail{
+font-size:20px;
+font-weight:bold;
+}
+
+.container-detail .price-detail{
+color:#17a2b8;
+font-size:30px;
+font-weight:bold;
+}
+
+.content-detail p{
+font-size:17px;}
+
+/*Calendar*/
+.card-calendar{
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 5px 0px 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card-date{
+    font-weight:bold;
+    font-size:17px;
+}
+.card-calendar:hover {
+    transform: scale(1.03);
+}
+
+/*slider*/
+
+.splitview {
+    position: relative;
+    width: 100%;
+    min-height: 37vw;
+    overflow: hidden;
+    margin-bottom:40px;
+}
+
+.panel {
+    position: absolute;
+    width: 100vw;
+    min-height: 37vw;
+    overflow: hidden;
+}
+
+    .panel .content {
+        position: absolute;
+        width: 100vw;
+        min-height: 37vw;
+        color: #FFF;
+    }
+
+    .panel .description {
+        width: 25%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+    }
+
+    .panel img {
+        box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.15);
+        width: 35%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+
+.bottom {
+    background-color: #17a2b8;
+    z-index: 1;
+}
+
+    .bottom .description {
+        right: 5%;
+    }
+
+.top {
+    background-color: rgb(77, 69, 173);
+    z-index: 2;
+    width: 50vw;
+
+}
+
+.top .description {
+    left: 5%;
+}
+
+.handle {
+    height: 100%;
+    position: absolute;
+    display: block;
+    background-color: rgb(253, 171, 0);
+    width: 5px;
+    top: 0;
+    left: 50%;
+    z-index: 3;
+}
+
+/* Skewed. */
+.skewed .handle {
+    top: 50%;
+    transform: rotate(30deg) translateY(-50%);
+    height: 200%;
+    -webkit-transform-origin: top;
+    -moz-transform-origin: top;
+    transform-origin: top;
+}
+
+.skewed .top {
+    transform: skew(-30deg);
+    margin-left: -1000px;
+    width: calc(50vw + 1000px);
+}
+
+.skewed .top .content {
+    transform: skew(30deg);
+    margin-left: 1000px;
+}
+
+@media (max-width: 900px) {
+    body {
+        font-size: 75%;
+    }
+}
+
+/*specialist*/
+
+.specialist img{
+    width: 70px;
+    margin:15px 0px;
+}
+
+
+
+
+
+
+
+

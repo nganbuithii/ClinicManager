@@ -1,0 +1,219 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+<h1 class="text-center">THỐNG KÊ BÁO CÁO</h1>
+<!--<div class="content-wrap">-->
+<!--    <button onclick="showContent('content1')">Doanh thu theo tháng</button>-->
+<!--    <button onclick="showContent('content2')">Tần suất khám</button>-->
+<!--    <button onclick="showContent('content3')">Tần suất sử dụng thuốc</button>-->
+<!--</div>-->
+<!--Doanh thu theo tháng-->
+<div class="container" id="content1" style="margin-top:20px;">
+    <form id="searchForm">
+        <div class="form-group" style="display:flex">
+            <input type="number" min="2000" max="2050"
+                   name="year"
+                   class="form-control" placeholder="Nhập năm...">
+            <input type="submit" value="Thống kê doanh thu và tần suất theo năm" class="btn btn-primary">
+        </div>
+    </form>
+    <div class="title">Doanh thu theo tháng</div>
+    {% if medical_message %}
+    <div class="alert alert-danger" role="alert">
+        {{ medical_message }}
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Tháng</th>
+                    <th>Doanh thu (VND)</th>
+                    <th>Tỉ lệ(%)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set total_reve = revenue_chart|map(attribute=1)|sum %}
+                {% for reve in revenue_chart%}
+                <tr>
+                    <td>{{ reve[0] }}</td>
+                    <td>{{ "{:,.1f}".format(reve[1]) }}</td>
+                    <td>{{ "%.2f"|format((reve[1] / total_reve) * 100) }}%</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <canvas id="revenueChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+<hr>
+<!--Tần suất khám-->
+<div class="container" id="content2" style="margin-top:20px;">
+    <div class="title">Tần suất khám</div>
+    {% if medical_message %}
+    <div class="alert alert-danger" role="alert">
+        {{ medical_message }}
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Tháng</th>
+                    <th>Số bệnh nhân</th>
+                    <th>Tỉ lệ(%)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set total_medi = medical_chart|map(attribute=1)|sum %}
+                {% for medi in medical_chart %}
+                <tr>
+                    <td>{{ medi[0] }}</td>
+                    <td>{{ medi[1] }}</td>
+                    <td>{{ "%.2f"|format((medi[1] / total_medi) * 100) }}%</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <canvas id="medicalChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<hr>
+<!--tần suất sử dụng thuốc-->
+<div class="container " id="content3" style="margin-top:20px;">
+    <div class="title">Tần suất sử dụng thuốc</div>
+    <form>
+        <div class="form-group" style="display:flex">
+            <input type="text"
+                   name="kw"
+                   class="form-control" placeholder="Nhập tên thuốc...">
+            <input type="submit" value="Thống kê" class="btn btn-primary">
+        </div>
+    </form>
+    {% if medicine_message %}
+    <div class="alert alert-danger" role="alert">
+        {{ medicine_message }}
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-md-6 col-xs-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Mã thuốc</th>
+                    <th>Tên thuốc</th>
+                    <th>Số Lượng</th>
+                    <th>Số lần dùng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    {% for m in medicine_chart%}
+                <tr>
+                    <td>{{ m[0] }}</td>
+                    <td>{{ m[1] }}</td>
+                    <td>{{ m[2] }}</td>
+                    <td>{{ m[3] }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <canvas id="medicineChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    let labels_medicine = [], labels_revenue = [], labels_medical = []
+    let datasets_medicine = [],datasets_revenue = [],datasets_medical = []
+
+    <!--thống kê thuốc-->
+    {% for m in medicine_chart%}
+        labels_medicine.push('{{ m[1] }}')
+        datasets_medicine.push({{ m[3] }})
+    {% endfor %}
+
+    <!--thống kê lượng bệnh nhân theo tháng-->
+    {% for medireve in medical_chart %}
+        labels_medical.push('{{ medireve[0] }}')
+        datasets_medical.push({{ medireve[1] }})
+    {% endfor %}
+
+    <!--Thống kê doanh thu theo tháng-->
+    {% for reve in revenue_chart %}
+        labels_revenue.push('{{ reve[0] }}')
+        datasets_revenue.push({{ reve[1] }})
+    {% endfor %}
+
+    function getRandomColor() {
+        var r = Math.floor(Math.random() * 256);
+        var g = Math.floor(Math.random() * 256);
+        var b = Math.floor(Math.random() * 256);
+
+        var rgbColor = 'rgb(' + r + ',' + g + ',' + b + ')';
+
+        return rgbColor;
+    }
+
+    window.onload = function() {
+        const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+        const ctxMedical = document.getElementById('medicalChart').getContext('2d');
+        const ctxMedicine = document.getElementById('medicineChart').getContext('2d');
+
+        loadChart(ctxRevenue, 'bar', 'Doanh thu theo tháng', labels_revenue, datasets_revenue);
+        loadChart(ctxMedical, 'line', 'Tần suất khám theo tháng', labels_medical, datasets_medical);
+        loadChart(ctxMedicine, 'doughnut', 'Số lần sử dụng thuốc', labels_medicine, datasets_medicine);
+    }
+
+    function loadChart(ctx, type, label, labels, datasets) {
+        const myChart = new Chart(ctx, {
+            type: type,
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: datasets,
+                    backgroundColor: datasets.map(() => getRandomColor()),
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+
+<!--<script>-->
+<!--    function showContent(contentId) {-->
+<!--      document.getElementById('content1').style.display = 'none';-->
+<!--      document.getElementById('content2').style.display = 'none';-->
+<!--      document.getElementById('content3').style.display = 'none';-->
+
+<!--      document.getElementById(contentId).style.display = 'block';-->
+<!--    }-->
+<!--</script>-->
+
+
+{% endblock %}

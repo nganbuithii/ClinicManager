@@ -1,0 +1,58 @@
+{% block content %}
+<div class="sidebar1 col-auto col-md-3 col-xl-2 px-sm-2  ">
+    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+        <div>
+            <img class="img-sidebar container"
+                 src="/static/image/logo.png">
+        </div>
+        <ul class="sidebar-item nav nav-pills flex-column pt-2 mb-sm-auto align-items-center align-items-sm-start"
+            id="menu">
+            {% if 'user_role' in session %}
+                {% if session['user_role'] == 2 %}
+                <li>
+                    <a href="/nurse/patient_list" class="nav-link px-0 align-middle">
+                        Danh sách bệnh nhân chờ</a>
+                </li>
+                <li>
+                    <a href="#" class=" btn-dkkham nav-link px-0 align-middle" data-bs-toggle="modal" data-bs-target="#myModal">
+                        Đăng ký khám </a>
+                </li>
+                {% elif session['user_role'] == 4 %}
+                <li>
+                    <a href="/doctor/patient_list" class="nav-link px-0 align-middle ">
+                        Lập phiếu khám</a>
+                </li>
+                {% elif session['user_role'] == 5 %}
+                <li>
+                    <a href="/cashier" class="nav-link px-0 align-middle">
+                        Thanh toán hóa đơn</a>
+                </li>
+                {% endif %}
+            {% endif %}
+
+            <li>
+                <br>
+                {% include 'nurse/modal_dkk.html' %}
+            </li>
+        </ul>
+
+       <!--sign out-->
+        <div class="dropdown pb-4">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none text-decoration-none dropdown-toggle"
+               id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                  {% if current_user.is_authenticated %}
+                  <img src="{{ current_user.avatar }}" style="margin-right:10px;" width="40px" height="40px" class="rounded-circle">
+                {% endif %}
+                <span class="d-none d-sm-inline mx-1">{{ session['name'] }}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+<!--                <li><a class="dropdown-item" href="#">Profile</a></li>-->
+                <li>
+                <a href="{{ url_for('logout') }}" class="nav-link px-0 align-middle"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                    ㅤĐăng xuất </a>
+            </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

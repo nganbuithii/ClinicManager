@@ -1,0 +1,93 @@
+{% extends 'staff_base.html' %}
+
+{% block title %} Thanh toán - HNK CLINIC {% endblock %}
+
+{% block content %}
+<div class="imagesub col py-3 container-right">
+    <div class="container container-table text-dark" id="print-content">
+        <h1 class="text-center mt-5 ">THANH TOÁN HÓA ĐƠN</h1>
+        <table>
+            <tr>
+                <td>Họ tên: {{ patient_name }}</td>
+                <td>Ngày khám: {{ exam_date }}</td>
+            </tr>
+            <tr>
+                <td>Mã phiếu: {{ promissory_note_id }}</td>
+                <td>Ngày thanh toán: {{ paid_date }}</td>
+            </tr>
+            <tr>
+                <td>Tiền khám: {{"{:,.1f}".format(exam_fee)}} VND</td>
+                <td>Tiền thuốc: {{"{:,.1f}".format(medicine_cost)}} VND</td>
+            </tr>
+            <tr>
+                <td colspan="2">Tổng tiền: {{"{:,.1f}".format(total_cost)}} VND</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="payment-section mt-4">
+        <label for="payment-method" class="text-dark">Phương thức thanh toán:</label>
+        <select id="payment-method" onchange="togglePaymentFields()">
+            <option value="cash">Tiền mặt</option>
+            <option value="transfer">Chuyển khoản</option>
+        </select>
+        <br>
+        <div class="mt-3" id="cash-payment" style="display: block;">
+            <label for="amount-tendered" class="text-dark">Số tiền khách đưa:</label>
+            <input type="number" id="amount-tendered" name="amount-tendered" oninput="calculateChange()">
+            <label for="money" class="text-dark">Số tiền trả khách:</label>
+            <input class="text-dark" type="number" id="money" name="money" disabled>
+        </div>
+        <div id="transfer-payment" style="display: none;">
+            <p class="text-center"><strong>Số tài khoản: 123456789</strong></p>
+            <p class="text-center"><strong>Thông tin chuyển khoản: PHONG KHAM HNK CLINIC</strong></p>
+            <div id="qr-code-container">
+                <img style="width:300px;" src="/static/image/QR.jpg">
+            </div>
+        </div>
+    </div>
+
+    <div class=" mt-3 issue-invoice">
+        <button class="btn btn-info text-light" onclick="printInvoice()">Xuất hóa đơn</button>
+    </div>
+    <script>
+        function togglePaymentFields() {
+            var paymentMethod = document.getElementById("payment-method").value;
+            var cashPayment = document.getElementById("cash-payment");
+            var transferPayment = document.getElementById("transfer-payment");
+
+            if (paymentMethod === "cash") {
+                cashPayment.style.display = "block";
+                transferPayment.style.display = "none";
+            } else if (paymentMethod === "transfer") {
+                cashPayment.style.display = "none";
+                transferPayment.style.display = "block";
+            }
+        }
+        function calculateChange() {
+            var amountTendered = parseFloat(document.getElementById("amount-tendered").value);
+            // lấy giá trị tiền khách đưa
+            var totalCost = parseFloat("{{ total_cost }}"); // Số tiền cần thanh toán
+
+            var change = amountTendered - totalCost;// tính toán tiền thừa
+
+            document.getElementById("money").value = change.toFixed(1);// đặt giá trị số tiê trả lại cho khách
+        }
+
+        function printInvoice() {
+            var printContent = document.getElementById("print-content").innerHTML;
+            var originalContent = document.body.innerHTML;
+
+            document.body.innerHTML = printContent;
+            window.print();
+
+            // Khôi phục nội dung ban đầu
+            document.body.innerHTML = originalContent;
+            window.location.href = '/cashier';
+        }
+    </script>
+
+
+</div>
+
+{% endblock %}

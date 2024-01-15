@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-sm  navbar-light">
+    <!-- Brand/logo -->
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='image/logo.png') }}" alt="logo" class="rounded">
+    </a>
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link{% if current_page == 'index' %} active{% endif %}" href="{{ url_for('index') }}">Trang
+                chủ</a>
+        </li>
+        {% if current_user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link{% if current_page == 'datLichKham' %} active{% endif %}"
+               href="{{ url_for('datLichKham') }}">Đăng ký lịch khám</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user_login', next='datLichKham') }}">Đăng ký lịch khám</a>
+        </li>
+        {% endif%}
+    </ul>
+
+    <!-- Nút đăng nhập ở bên phải -->
+
+
+    <ul class="navbar-nav ml-auto">
+        {% if current_user.is_authenticated %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" style="color:white;" href="#" id="navbardrop" data-toggle="dropdown">
+                {% if current_user.avatar %}
+                <img src="{{ current_user.avatar }}" width="40px" height="40px" class="rounded-circle">
+                {% else %}
+                <i class="fa fa-user"></i>
+                {% endif %}
+                {{ current_user.name }}</a>
+            <div class="dropdown-menu">
+<!--                <a class="dropdown-item" href="/medical_history">Lịch sử khám bệnh</a>-->
+                <a class="dropdown-item" href="{{ url_for('profile') }}">Hồ sơ bệnh nhân</a>
+                <a class="dropdown-item" href="{{ url_for('logout') }}">Đăng xuất</a>
+            </div>
+        </li>
+
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user_login') }}">
+                <button type="button" class="btn btn-success">Đăng nhập</button>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>

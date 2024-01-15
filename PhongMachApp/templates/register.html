@@ -1,0 +1,52 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Đăng ký{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center text-success">Đăng ký</h1>
+
+    {% if err_msg %}
+    <div class="alert alert-danger">
+        <h3>{{ err_msg }}</h3>
+    </div>
+    {% endif %}
+
+    <form method="post" action="{{ url_for('user_register') }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="text" placeholder="Họ và tên..."
+                   name="name" class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" placeholder="Email..."
+                   name="email" class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <input type="tel" placeholder="Số điện thoại..."
+                   name="phone" class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <input type="password" placeholder="Mật khẩu..."
+                   name="password" class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <input type="password" placeholder="Xac nhan mat khau..."
+                   name="confirm" class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <input type="file" name="avatar" class="form-control" id="avatar"/>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Đăng ký"
+                   class="btn btn-success"/>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+*{
+    font-family: Helvetica Neue, sans-serif
+}
+/*change quantity patient*/
+.change-quantity,
+.change-money{
+    display: flex;
+    margin-top: 40px;
+}
+.change-quantity div{
+    margin-left: 80px;
+}
+.change-money div{
+    margin-left: 172px
+}
+.save{
+    margin-left: 347px;
+    margin-top: 34px;
+}
+.save button{
+    width: 186px;
+    background-color: lightblue;
+    border: none;
+}
+/*report_statistics*/
+
+.content-wrap {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.content-wrap button{
+    padding: 13px;
+    background-color:#008CBA;
+    border: none;
+    color: white;
+    margin-bottom:10px;
+    border-radius:15px;
+}
+
+.title{
+    font-size:30px;
+    text-align:center;
+    font-weight:bold;
+    margin-top:-15px;
+    margin-bottom:15px;
+}

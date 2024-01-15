@@ -1,0 +1,110 @@
+{% block content %}
+<!-- The Modal -->
+<div class="modal " id="myModal">
+    <div class="modal-dialog  ">
+        <!-- Modal content -->
+        <div class="modal-content bg-white">
+            <form action="/result" method="post">
+                <div class="modal-header text-dark">
+                    <h4 class="modal-title">Nhập thông tin bệnh nhân</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="form-group  text-dark pt-3">
+                    <label for="name">Họ và tên:</label>
+                    <input type="text" placeholder="Họ và tên..."
+                           name="name" class="form-control" required id="name"/>
+                </div>
+                <div class="form-group  text-dark pt-3">
+                    <label for="cccd">CCCD/CMND:</label>
+                    <input type="text" placeholder="Nhập CCCD/CMND"
+                           name="cccd" class="form-control" required id="cccd"/>
+                </div>
+
+                <div class="form-group  text-dark pt-3">
+                    <div class="form-check-inline">
+                        <label class="form-check-label" style="padding-right:20px;">
+                            Giới tính:
+                        </label>
+                    </div>
+                    <div class="form-check-inline  text-dark pt-3">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optradio"
+                                   value="Nam" checked>Nam
+                        </label>
+                    </div>
+                    <div class="form-check-inline  text-dark pt-3">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optradio"
+                                   value="Nữ">Nữ
+                        </label>
+                    </div>
+                    <div class="form-check-inline  text-dark pt-3">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="optradio"
+                                   value="Khác">Khác
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group  text-dark pt-3">
+<!--                    <label for="sdt">Số điện thoại:</label>-->
+                    <input type="text" placeholder="Số điện thoại..."
+                           name="sdt" class="form-control" required/>
+                </div>
+
+                <div class="form-group  text-dark pt-3">
+                    <label for="birthday">Ngày sinh:</label>
+                    <input type="date"
+                           name="birthday" class="form-control" required id="birthday"/>
+                </div>
+                <div class="form-group  text-dark pt-3">
+                    <label for="address">Địa chỉ:</label>
+                    <input type="text" placeholder="Địa chỉ..."
+                           name="address" class="form-control" required id="address"/>
+                </div>
+
+                <div class="form-group  text-dark pt-3">
+                    <label for="calendar">Ngày khám:</label>
+                    <input type="date" name="calendar" class="form-control" required id="calendar"/>
+
+                </div>
+                <div class="modal-footer">
+                     <div class="modal-footer">
+                    <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('calendar').setAttribute('min', today);
+    <script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('calendar').setAttribute('min', today);
+
+    function validateForm() {
+        var name = document.getElementById('name').value;
+        var cccd = document.getElementById('cccd').value;
+        var radioChecked = document.querySelector('input[name="optradio"]:checked');
+        var sdt = document.getElementById('sdt').value;
+        var birthday = document.getElementById('birthday').value;
+        var address = document.getElementById('address').value;
+        var calendar = document.getElementById('calendar').value;
+
+        if (name === '' || cccd === '' || radioChecked === null || sdt === '' || birthday === '' || address === '' || calendar === '') {
+            alert('Please fill out all fields before submitting.');
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+    }
+</script>
+</script>
+
+{% endblock %}

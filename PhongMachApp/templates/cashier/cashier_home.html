@@ -1,0 +1,84 @@
+{% extends 'staff_base.html' %}
+
+{% block title %} Trang thanh toán {% endblock %}
+
+{% block content %}
+<div class=" imagesub col py-3">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <h1 class="text-center mt-5"> DANH SÁCH HÓA ĐƠN </h1>
+    <div class="search-container">
+        <form id="searchForm" class="search-form">
+            <input type="text" id="search" name="search_query" placeholder="Nhập số căn cước">
+            <button type="submit" class="btn text-light">Tìm kiếm</button>
+        </form>
+    </div>
+
+
+    <table border="1" class="tb-hoadon container text-center table table-striped table-bordered mt-3">
+        <thead class="bg-base text-light">
+        <tr>
+            <th>Mã phiếu</th>
+            <th>Mã bệnh nhân</th>
+            <th>Ngày khám</th>
+            <th>Họ và tên</th>
+            <th>CCCD</th>
+            <th>Chẩn đoán</th>
+            <th>Trạng thái</th>
+
+        </tr>
+        </thead>
+        <tbody class="tb-scroll">
+        {% for note in all_notes %}
+        <tr>
+            <td>{{ note.id }}</td>
+            <td>{{ note.appointment_id }}</td>
+            <td>{{ note.date }}</td>
+            <td>{{ note.appointment.name }}</td>
+            <td>{{ note.appointment.cccd}}</td>
+            <td>{{ note.forecast }}</td>
+            <td>
+                {% if note.appointment_id in payment_status %}
+                    {% if payment_status[note.appointment_id] %}
+                    <!-- Nếu đã thanh toán, hiển thị nút "Hoàn thành" -->
+                    <button type="button" class="btn btn-secondary" disabled>Hoàn thành</button>
+                    {% else %}
+                    <!-- Nếu chưa thanh toán, hiển thị nút "Thanh toán" -->
+                    <button type="button" class="btn btn-success" onclick="pay({{ note.appointment_id }})">Thanh toán
+                    </button>
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+       event.preventDefault();
+       let searchValue = document.getElementById('search').value;
+
+       // Tạo một URL tìm kiếm dựa trên giá trị nhập vào
+       let searchUrl = '/cashier?cccd_query=' + searchValue;
+
+       // Chuyển hướng người dùng đến URL tìm kiếm
+       window.location.href = searchUrl;
+   });
+   function pay(appointmentId) {
+       // Redirect người dùng đến trang thanh toán khi nhấn nút "Thanh toán"
+       window.location.href = '/pay_info/' + appointmentId;
+   }
+
+
+</script>
+
+{% endblock %}

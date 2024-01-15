@@ -1,0 +1,66 @@
+{% extends 'staff_base.html' %}
+
+{% block title %} Danh sách bệnh nhân khám {% endblock %}
+
+{% block content %}
+<div class=" image-bsi content-side col py-3">
+    <div class="container ">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <h1 class="text-center mt-5">DANH SÁCH KHÁM BỆNH NGÀY: {{ target_date }}</h1>
+    <div class="search-container" style="margin-left:100px;">
+         <form action="/doctor/patient_list" class="search-form mt-3" method="GET">
+            <input id="cancuocInput" name="cccd" placeholder="Nhập số căn cước ">
+            <button class=" btn btn-secondary" type="submit">Tìm kiếm</button>
+        </form>
+    </div>
+
+
+        <table class="tb-kham  container mt-3 table table-striped table-info ">
+            <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên bệnh nhân</th>
+                <th>CCCD</th>
+                <th>Giới tính</th>
+                <th>SĐT</th>
+                <th>Ngày sinh</th>
+                <th>Địa chỉ</th>
+                <th>Ngày đăng ký khám</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for exam in medical_exams %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ exam.appointment.name }}</td>
+                <td>{{ exam.appointment.cccd }}</td>
+                <td>{{ exam.appointment.gender }}</td>
+                <td>{{ exam.appointment.sdt }}</td>
+                <td>{{ exam.appointment.birthday }}</td>
+                <td>{{ exam.appointment.address }}</td>
+                <td>{{ exam.appointment.calendar }}</td>
+                <td>
+                    {% if exam.appointment.id in appointment_ids %}
+                    <button class="btn btn-secondary">Hoàn thành</button>
+                    {% else %}
+                    <a href="{{ url_for('examination_form', appointment_id=exam.appointment.id) }}"
+                       class="btn btn-success">Lập phiếu khám</a>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

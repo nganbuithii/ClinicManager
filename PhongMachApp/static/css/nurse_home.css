@@ -1,0 +1,253 @@
+body{
+font-size:20px;}
+.sidebar1 {
+  background-color: #7386d5;
+  font-size: 18px;
+  position: fixed;
+  z-index: 1000;
+}
+.bg-base{
+background-color:#7386d5;
+}
+.modal-backdrop {
+  z-index: 999;
+}
+.nav-link:focus, .nav-link:hover {
+    color: white;
+    /* color: var(--bs-nav-link-hover-color); */
+}
+&:hover,&:focus {
+    color: white;
+
+  }
+body {
+  color: white;
+}
+button {
+  font-size: 20px;
+}
+input {
+  padding: 10px;
+  font-seize: 18px;
+}
+
+.btn-dkkham {
+  pointer-events: auto;
+  margin-top: 10px;
+  font-size:20px;
+  padding:20px;
+}
+.content-side {
+  margin-left: 300px;
+}
+/*body{
+font-size:20px;}*/
+.color-base{
+color:#7386d5;}
+
+.sidebar ul li a:hover {
+  color: #7386d5;
+  background: #fff;
+}
+.sidebar ul li {
+  padding: 10px;
+  display: block;
+}
+.sidebar ul li a {
+  color: white;
+}
+.sidebar-item > li:not(:last-child):hover {
+  display: block;
+  /*background-color:red;*/
+
+  width: 100%;
+}
+.sidebar-item li:hover a {
+  font-weight: bold;
+}
+.sidebar ul li:last-child button.btn-dkkham{
+  background:#7d26ff;
+  color:white;
+  }
+ .sidebar ul li:last-child button:hover{
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+ }
+.modal-content {
+  padding: 50px;
+}
+
+.btn-delete {
+  padding: 10px;
+  background-color: red;
+  border: none;
+  border-radius: 50%;
+}
+
+.img-delete {
+  width: 35px;
+  object-fit: cover;
+}
+div.modal-backdrop {
+  z-index: 0;
+}
+
+.table-container {
+  max-height: 500px;
+  overflow: auto;
+}
+
+.table-patient {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.table-patient thead,
+.table-patient tbody {
+  display: block;
+}
+
+.table-patient tbody {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.table-patient th,
+.table-patient td {
+  text-align: center;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  width: 500px; /* Điều chỉnh kích thước theo nhu cầu */
+}
+
+.nurse-list-button-date button {
+  margin-top: 50px;
+  padding: 20px;
+  margin-right: 100px;
+}
+
+.imagenen{
+    background-image:url("/static/image/BG.png");
+    margin-left:300px;
+     background-position: center; /* Căn giữa */
+    background-size: cover; /* Tự điều chỉnh kích thước để bao phủ toàn bộ div */
+    background-repeat: no-repeat; /* Không lặp lại hình nền */
+
+    /* Các thuộc tính khác để thiết lập kiểu dáng cho div */
+   height: 100vh;
+
+}
+.text-header{
+font-size: 80px;
+color:white;
+font-weight:bold;
+padding-left:200px;
+padding-right:200px;
+padding-top:150px;}
+.imagesub{
+ background-image:url("/static/image/sub.png");
+    margin-left:300px;
+     background-position: center; /* Căn giữa */
+    background-size: cover; /* Tự điều chỉnh kích thước để bao phủ toàn bộ div */
+    background-repeat: no-repeat; /* Không lặp lại hình nền */
+
+    /* Các thuộc tính khác để thiết lập kiểu dáng cho div */
+   height: 100vh;
+}
+
+button.btn-del{
+border: none;}
+
+
+/*doctor*/
+.table-medicine{
+padding:20px;
+margin-top:15px;}
+
+.image-yta {
+ background-image:url("/static/image/yta.png");
+    margin-left:300px;
+     background-position: center; /* Căn giữa */
+    background-size: cover; /* Tự điều chỉnh kích thước để bao phủ toàn bộ div */
+    background-repeat: no-repeat; /* Không lặp lại hình nền */
+
+    /* Các thuộc tính khác để thiết lập kiểu dáng cho div */
+   height: 100vh;
+}
+.image-bsi {
+    background-image: url("/static/image/bsi.png");
+    margin-left: 300px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.card p{
+color: black;
+padding: 0 10px 0 10px;}
+
+.a-cancel {
+  display: block;
+  width: 100%;
+  font-weight:bold;
+  font-size:20px;
+ /* Điều chỉnh kích thước tối đa của nút nếu cần */
+  text-align: center;
+  padding: 10px; /* Điều chỉnh lề và padding nếu cần */
+  box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước của nút */
+  text-decoration: none;
+  color: white;
+}
+
+.a-cancel:hover {
+  /* Thêm hiệu ứng hover tùy ý */
+  opacity: 0.8;
+  /* Thay đổi màu sắc hoặc hiệu ứng khác nếu bạn muốn */
+}
+h1.text-center{
+color: #7386d5;}
+
+
+  .tb-kham{
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+  .tb-kham thead,
+  .tb-kham tbody {
+    display: block;
+  }
+  .tb-kham thead {
+    width: calc(100% - 17px); /* Bù trừ thanh cuộn ngang */
+  }
+  .tb-kham tbody {
+    max-height: 450px;
+    width: 100%;
+    overflow-y: auto;
+    display: block;
+  }
+  .tb-kham tr {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .tb-kham th,
+  .tb-kham td {
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    flex: 1 1 auto;
+    width: 160px; /* Điều chỉnh kích thước theo nhu cầu */
+    min-width: 0;
+  }
+  .tb-kham th:first-child,
+  .tb-kham td:first-child {
+    flex: 0 0 100px; /* Cột Mã phiếu */
+    width: 100px; /* Kích thước cột Mã phiếu */
+  }
+  .tb-kham th:nth-child(2),
+  .tb-kham td:nth-child(2) {
+    flex: 0 0 120px; /* Cột Mã bệnh nhân */
+    width: 120px; /* Kích thước cột Mã bệnh nhân */
+  }
+

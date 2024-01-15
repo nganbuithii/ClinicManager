@@ -1,0 +1,90 @@
+{% extends 'staff_base.html' %}
+
+{% block title %} Danh sách khám{% endblock %}
+
+{% block content %}
+<div class=" image-yta content-side col py-3">
+    <div class="container">
+        <h1 class="text-center text-info mt-5">Danh sách khám bệnh</h1>
+        <p class="alert alert-success text-center">Số lượng bệnh nhân đăng ký theo ngày: {{ appointment_count }}</p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <!-- Lọc theo ngày -->
+        <label class="text-dark">Ngày khám</label>
+        <input type="date" id="ngayKham" value="{{ selected_date }}">
+
+<!--        <button class="btn btn-outline-info" onclick="filterByDate()">Lọc</button>-->
+
+        <!-- Bảng danh sách bệnh nhân -->
+        <div class="table-patient">
+            <table class="mt-3 table table-striped table-info" id="patientTable">
+                <thead>
+                <tr>
+                    <th>Tên</th>
+                    <th>CCCD</th>
+                    <th>Giới tính</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày sinh</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày khám</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for appointment in appointments %}
+                <tr id="row_{{ appointment.id }}">
+                    <td>{{ appointment.name }}</td>
+                    <td>{{ appointment.cccd }}</td>
+                    <td>{{ appointment.gender }}</td>
+                    <td>{{ appointment.sdt }}</td>
+                    <td>{{ appointment.birthday }}</td>
+                    <td>{{ appointment.address }}</td>
+                    <td>{{ appointment.calendar }}</td>
+                    <td></td>
+<!--                    <td>-->
+<!--                        <button type="button" class="btn-delete"-->
+<!--                                onclick="deletePatientFromSession({{ appointment.id }})">-->
+<!--                            <img class="img-delete" src="static/image/delete.png"/>-->
+<!--                        </button>-->
+<!--                    </td>-->
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Nút lập danh sách khám -->
+        <div class="nurse-list-button-date button container d-flex justify-content-center">
+            <button type="button" class="btn btn-primary btn1 btn-dkkham" data-bs-toggle="modal"
+                    data-bs-target="#myModal">
+                Thêm bệnh nhân
+            </button>
+
+
+            <!-- Modal -->
+            {% include 'nurse/modal_dkk.html' %}
+
+            <!-- Form để lập danh sách khám -->
+            <form id="appointmentForm" action="/appointment_list" method="post">
+                <input style="display:none" type="date" id="appointment_date" name="appointment_date">
+                <button class="btn btn-success btn-lapds" id="createListButton" type="button"
+                        onclick="saveAppointmentList()">
+                    Lập danh sách khám
+                </button>
+            </form>
+              <button style="width:150px;" type="button" class="btn btn-danger btn">
+                  <a style="color:white;" href="/nurse/patient_list"> Thoát</a>
+            </button>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/nurse.js') }}"></script>
+{% endblock %}
